@@ -50,7 +50,7 @@ func insertOneMovie(movie model.Netflix) {
 
 // update single movie
 func updateOneMovie(movieId string) {
-	id, _ := primitive.ObjectID(movieId)
+	id, _ := primitive.ObjectIDFromHex(movieId)
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{"Watched": true}}
 
@@ -59,4 +59,29 @@ func updateOneMovie(movieId string) {
 		log.Fatal(err)
 	}
 	fmt.Println("Movie updated", result)
+}
+
+// delete one movie
+func deleteOneMovie(movieId string) {
+	id, err := primitive.ObjectIDFromHex(movieId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"_id": id}
+	result, err := collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("movie deleted ", result)
+
+}
+
+// delete all movie
+func deleteAllMovie() {
+	result, err := collection.DeleteMany(context.Background(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("deleted all movies", result)
+
 }
