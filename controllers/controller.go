@@ -7,6 +7,8 @@ import (
 	"os"
 
 	model "github.com/iamtonmoy0/movie-crud-api/models"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -37,10 +39,24 @@ func init() {
 	fmt.Println("Collection instance is ready")
 }
 
+// insert movie
 func insertOneMovie(movie model.Netflix) {
 	inserted, err := collection.InsertOne(context.Background(), movie)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Inserted one movie with ID: ", inserted.InsertedID)
+}
+
+// update single movie
+func updateOneMovie(movieId string) {
+	id, _ := primitive.ObjectID(movieId)
+	filter := bson.M{"_id": id}
+	update := bson.M{"$set": bson.M{"Watched": true}}
+
+	result, err := collection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Movie updated", result)
 }
