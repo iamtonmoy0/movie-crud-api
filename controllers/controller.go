@@ -149,7 +149,7 @@ func DeleteOneMovie(w http.ResponseWriter, r *http.Request) {
 func DeleteAllMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
-	id := mux.Vars(r)["id"]
-	deleteAllMovie(id)
-	json.NewEncoder(w).Encode("id")
+
+	deleteAllMovie()
+	json.NewEncoder(w).Encode(count)
 }
