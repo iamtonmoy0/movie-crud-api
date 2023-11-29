@@ -139,7 +139,7 @@ func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
 // delete one movie
 func DeleteOneMovie(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 	id := mux.Vars(r)["id"]
 	deleteOneMovie(id)
 	json.NewEncoder(w).Encode("id")
@@ -148,5 +148,8 @@ func DeleteOneMovie(w http.ResponseWriter, r *http.Request) {
 // delete all movie
 func DeleteAllMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+	id := mux.Vars(r)["id"]
+	deleteAllMovie(id)
+	json.NewEncoder(w).Encode("id")
 }
