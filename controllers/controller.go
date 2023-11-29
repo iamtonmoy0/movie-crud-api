@@ -151,5 +151,5 @@ func DeleteAllMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
 	deleteAllMovie()
-	json.NewEncoder(w).Encode(count)
+	json.NewEncoder(w).Encode("all movie deleted")
 }
