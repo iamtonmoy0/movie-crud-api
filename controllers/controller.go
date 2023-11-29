@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 	model "github.com/iamtonmoy0/movie-crud-api/models"
@@ -26,7 +25,7 @@ var collection *mongo.Collection
 
 func init() {
 	//client option
-	clientOption := options.Client().ApplyURI(os.Getenv("DB"))
+	clientOption := options.Client().ApplyURI("")
 
 	//connect to mongo
 	client, err := mongo.Connect(context.TODO(), clientOption)
